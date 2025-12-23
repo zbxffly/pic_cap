@@ -26,6 +26,7 @@ const fontWeight = document.getElementById('fontWeight');
 const subtitleContent = document.getElementById('subtitleContent');
 const generateBtn = document.getElementById('generateBtn');
 const saveBtn = document.getElementById('saveBtn');
+const generateQuotesBtn = document.getElementById('generateQuotesBtn');
 const statusMessage = document.getElementById('statusMessage');
 
 /**
@@ -63,6 +64,9 @@ function initEventListeners() {
 
     // 保存按钮点击事件
     saveBtn.addEventListener('click', saveImage);
+    
+    // 生成金句按钮点击事件
+    generateQuotesBtn.addEventListener('click', generateQuotes);
 }
 
 /**
@@ -309,6 +313,37 @@ function showStatus(message, type) {
     setTimeout(() => {
         statusMessage.className = 'status-message';
     }, 3000);
+}
+
+/**
+ * 生成金句
+ */
+function generateQuotes() {
+    const quotes = [
+        "每一次努力都是在为自己的未来铺路",
+        "坚持就是胜利，成功属于永不放弃的人",
+        "梦想不会逃跑，会逃跑的永远都是自己",
+        "今天的付出，明天的收获",
+        "机会总是留给有准备的人",
+        "相信自己，你比想象中更强大",
+        "努力到无能为力，拼搏到感动自己",
+        "每一个不曾起舞的日子，都是对生命的辜负",
+        "生活原本沉闷，但跑起来就会有风",
+        "心有山海，静而无边"
+    ];
+    
+    // 随机选择一条金句
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
+    
+    // 将金句填充到字幕文本框
+    subtitleContent.value = randomQuote;
+    
+    // 更新预览
+    updatePreview();
+    
+    // 显示成功提示
+    showStatus('金句生成成功！', 'success');
 }
 
 /**
