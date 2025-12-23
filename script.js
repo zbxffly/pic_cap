@@ -11,6 +11,7 @@ let generatedImage = null;
 // DOM元素
 const imageUpload = document.getElementById('imageUpload');
 const uploadBtn = document.getElementById('uploadBtn');
+const randomImageBtn = document.getElementById('randomImageBtn');
 const fileName = document.getElementById('fileName');
 const previewImage = document.getElementById('previewImage');
 const previewContainer = document.getElementById('previewContainer');
@@ -67,6 +68,9 @@ function initEventListeners() {
     
     // 生成金句按钮点击事件
     generateQuotesBtn.addEventListener('click', generateQuotes);
+    
+    // 随机图片按钮点击事件
+    randomImageBtn.addEventListener('click', generateRandomImage);
 }
 
 /**
@@ -344,6 +348,52 @@ function generateQuotes() {
     
     // 显示成功提示
     showStatus('金句生成成功！', 'success');
+}
+
+/**
+ * 生成随机图片
+ */
+function generateRandomImage() {
+    // 随机图片API（使用picsum.photos）
+    const width = 800;
+    const height = 600;
+    const randomSeed = Math.floor(Math.random() * 1000);
+    const randomImageUrl = `https://picsum.photos/${width}/${height}?seed=${randomSeed}`;
+    
+    // 显示加载状态
+    showStatus('正在加载随机图片...', 'success');
+    
+    // 创建图片对象
+    originalImage = new Image();
+    originalImage.crossOrigin = 'anonymous'; // 解决跨域问题
+    originalImage.onload = function() {
+        // 使用Canvas绘制图片，避免跨域问题
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = originalImage.width;
+        canvas.height = originalImage.height;
+        ctx.drawImage(originalImage, 0, 0);
+        
+        // 将Canvas转换为DataURL
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        // 更新预览图片
+        previewImage.src = dataUrl;
+        previewImage.style.display = 'block';
+        fileName.textContent = '随机图片';
+        
+        // 更新originalImage为DataURL版本
+        originalImage = new Image();
+        originalImage.onload = function() {
+            updatePreview();
+            showStatus('随机图片加载成功！', 'success');
+        };
+        originalImage.src = dataUrl;
+    };
+    originalImage.onerror = function() {
+        showStatus('随机图片加载失败，请重试', 'error');
+    };
+    originalImage.src = randomImageUrl;
 }
 
 /**
