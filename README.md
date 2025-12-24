@@ -38,8 +38,8 @@
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/zbxffly/pic-dict.git
-   cd pic-dict
+   git clone https://github.com/zbxffly/pic-cap.git
+   cd pic-cap
    ```
 
 2. **启动服务器**
