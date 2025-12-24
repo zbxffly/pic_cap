@@ -8,7 +8,16 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">图片字幕生成器</h1>
+        <div class="header">
+            <h1 class="title">图片字幕生成器</h1>
+            <button id="infoBtn" class="info-btn" title="查看项目文档">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+        </div>
         
         <div class="main-content">
             <!-- 左侧控制面板 -->
@@ -106,6 +115,21 @@
                 <div class="section">
                     <button id="saveBtn" class="btn btn-primary btn-center">保存图片</button>
                     <div id="statusMessage" class="status-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文档模态框 -->
+    <div id="docsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>项目文档</h2>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="docs-content">
+                    <!-- 文档内容将通过JavaScript动态加载 -->
                 </div>
             </div>
         </div>

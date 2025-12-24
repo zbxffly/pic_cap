@@ -25,10 +25,14 @@ const outlineColorHex = document.getElementById('outlineColorHex');
 const fontFamily = document.getElementById('fontFamily');
 const fontWeight = document.getElementById('fontWeight');
 const subtitleContent = document.getElementById('subtitleContent');
-const generateBtn = document.getElementById('generateBtn');
 const saveBtn = document.getElementById('saveBtn');
 const generateQuotesBtn = document.getElementById('generateQuotesBtn');
 const statusMessage = document.getElementById('statusMessage');
+// 文档模态框元素
+const infoBtn = document.getElementById('infoBtn');
+const docsModal = document.getElementById('docsModal');
+const closeModal = document.getElementById('closeModal');
+const docsContent = document.querySelector('.docs-content');
 
 /**
  * 初始化事件监听
@@ -85,6 +89,216 @@ function initEventListeners() {
     
     // 随机图片按钮点击事件
     randomImageBtn.addEventListener('click', generateRandomImage);
+    
+    // 文档模态框事件
+    infoBtn.addEventListener('click', showDocsModal);
+    closeModal.addEventListener('click', hideDocsModal);
+    
+    // 点击模态框外部关闭
+    docsModal.addEventListener('click', (e) => {
+        if (e.target === docsModal) {
+            hideDocsModal();
+        }
+    });
+}
+
+/**
+ * 显示文档模态框
+ */
+function showDocsModal() {
+    loadReadmeContent();
+    docsModal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // 防止背景滚动
+}
+
+/**
+ * 隐藏文档模态框
+ */
+function hideDocsModal() {
+    docsModal.style.display = 'none';
+    document.body.style.overflow = ''; // 恢复背景滚动
+}
+
+/**
+ * 加载README.md内容
+ */
+function loadReadmeContent() {
+    // 文档内容（直接嵌入，避免跨域问题）
+    const readmeContent = `# 图片字幕生成器
+
+一个功能强大的图片字幕生成工具，支持自定义字幕样式、实时预览和图片保存。
+
+## 🎯 功能特性
+
+### 图片处理
+- 📤 **图片上传**：支持从本地上传图片
+- 🎲 **随机图片**：一键生成随机图片
+- 🔍 **实时预览**：所见即所得的预览效果
+
+### 字幕功能
+- ✏️ **字幕编辑**：支持多行文字输入
+- 📝 **金句生成**：内置100条精选金句
+- 🎨 **样式自定义**：
+  - 字幕高度调整
+  - 字体大小设置
+  - 字体颜色选择
+  - 字体样式切换（微软雅黑、宋体、黑体、楷体、Arial）
+  - 字体粗细调整
+  - 文字轮廓颜色设置
+
+### 图片生成
+- ⚡ **实时生成**：修改内容自动更新
+- 🎬 **文字背景**：使用图片底部区域作为文字背景
+- 💾 **图片保存**：一键保存生成的图片
+
+## 🛠️ 技术栈
+
+- **前端框架**：纯HTML/CSS/JavaScript
+- **图片处理**：Canvas API
+- **样式设计**：CSS3
+- **响应式设计**：支持多种屏幕尺寸
+
+## 🚀 快速开始
+
+### 本地运行
+
+1. **克隆项目**
+   ```bash
+   git clone https://github.com/zbxffly/pic-dict.git
+   cd pic-dict
+   ```
+
+2. **启动服务器**
+   ```bash
+   # 使用Python 3
+   python -m http.server 8000
+   
+   # 或使用Node.js
+   npx http-server -p 8000
+   
+   # 或使用PHP
+   php -S localhost:8000
+   ```
+
+3. **访问应用**
+   打开浏览器访问：http://localhost:8000
+
+### 直接使用
+
+- 下载项目文件
+- 直接在浏览器中打开 `index.html` 文件
+
+## 📖 使用说明
+
+### 1. 上传图片
+
+- 点击「+ 选择图片」按钮上传本地图片
+- 或点击「随机图片」生成一张随机图片
+
+### 2. 编辑字幕
+
+- 在「字幕内容」文本框中输入文字
+- 支持换行，每行显示一条字幕
+- 点击「随机金句」生成一条随机金句
+
+### 3. 自定义样式
+
+- **字幕高度**：调整字幕区域的高度
+- **字体大小**：调整文字大小
+- **字体颜色**：选择文字颜色
+- **轮廓颜色**：选择文字轮廓颜色
+- **字体样式**：切换不同的字体
+- **字体粗细**：调整文字粗细
+
+### 4. 生成和保存图片
+
+- 所有修改会自动生成预览
+- 点击「保存图片」按钮下载生成的图片
+
+## 📁 项目结构
+
+```
+pic-dict/
+├── index.html          # 主页面
+├── styles.css          # 样式文件
+├── script.js           # 核心逻辑
+└── README.md           # 项目文档
+```
+
+## 🎨 设计亮点
+
+- **现代化UI**：采用深色主题设计，搭配金色高亮元素
+- **直观操作**：简洁明了的控制面板
+- **实时反馈**：修改内容立即更新预览
+- **响应式布局**：适配不同屏幕尺寸
+- **易用性优先**：简单直观的操作流程
+
+## 📝 更新日志
+
+### v1.0.0 (2025-12-24)
+
+- ✨ 初始版本发布
+- 🎯 实现核心功能
+- 🎨 设计豪华主题
+- 📚 内置100条金句
+
+## 📄 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎提交Issue和Pull Request！
+
+## 📞 联系方式
+
+如有问题或建议，欢迎通过GitHub Issues反馈。
+
+---
+
+**图片字幕生成器** - 让你的图片更有故事！ 🎉`;
+    
+    // 将Markdown内容转换为HTML
+    const htmlContent = markdownToHtml(readmeContent);
+    docsContent.innerHTML = htmlContent;
+}
+
+/**
+ * Markdown简单转换为HTML
+ * @param {string} markdown - Markdown文本
+ * @returns {string} HTML文本
+ */
+function markdownToHtml(markdown) {
+    return markdown
+        // 标题
+        .replace(/^#{6} (.+)$/gm, '<h6>$1</h6>')
+        .replace(/^#{5} (.+)$/gm, '<h5>$1</h5>')
+        .replace(/^#{4} (.+)$/gm, '<h4>$1</h4>')
+        .replace(/^#{3} (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^#{2} (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^#{1} (.+)$/gm, '<h1>$1</h1>')
+        // 粗体
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        // 斜体
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/_(.+?)_/g, '<em>$1</em>')
+        // 代码块
+        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+        // 行内代码
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        // 无序列表
+        .replace(/^[\s]*[-*+] (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>.+<\/li>)(?!<li>)/gs, '<ul>$1</ul>')
+        // 有序列表
+        .replace(/^[\s]*\d+\. (.+)$/gm, '<li>$1</li>')
+        .replace(/(<li>.+<\/li>)(?!<li>)/gs, '<ol>$1</ol>')
+        // 链接
+        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
+        // 段落
+        .replace(/^(?!<h|<ul|<ol|<li|<pre|<code).+$/gm, '<p>$&</p>')
+        // 移除多余的空行
+        .replace(/\n{3,}/g, '\n\n');
 }
 
 /**
